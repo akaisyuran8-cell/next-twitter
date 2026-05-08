@@ -25,19 +25,27 @@ export default function Home() {
     }
     setTimeLineItems(allItems.filter((item) => item.text === text));
   }
-  function deleteButton(tweetNumber: number) {
-    setTimeLineItems(
-      //timelineItemsから削除
-      timelineItems.filter((timelineItem, index) => index !== tweetNumber),
-    );
-  }
+function deleteButton(tweetNumber: number) {
+  // timelineItems から削除
+  setTimeLineItems(
+    timelineItems.filter((_, index) => index !== tweetNumber)
+  );
+
+  // allItems からも削除 ← これが必要！
+  setAllItems(
+    allItems.filter((_, index) => index !== tweetNumber)
+  );
+}
+
   function updateLikeCount(like: boolean, tweetNumber: number) {
     //tweetNumber6
     setTimeLineItems(
       //更新
       timelineItems.map((item, index) =>
         tweetNumber === index
-          ? { ...item, iineCount: item.iineCount - (like ? 1 : -1) }
+          ? { ...item,
+              like: !like, 
+            iineCount: item.iineCount - (like ? 1 : -1) }
           : // いいねが押されたときにiineCountを増やす処理
             item,
       ),
@@ -50,36 +58,22 @@ export default function Home() {
 
   return (
     <div className="">
-      <button
-        onClick={() => {
-          allItems.push({
-            text: tweetText,
-            time: "12:00",
-            iineCount: Math.floor(Math.random() * 15000) + 1,
-            like: false,
-          });
+<button
+  onClick={() => {
+    const newTweet = {
+      text: tweetText,
+      time: "12:00",
+      iineCount: Math.floor(Math.random() * 15000) + 1,
+      like: false,
+    };
 
-          setAllItems(allItems);
+    setAllItems([...allItems, newTweet]);
+    setTimeLineItems([...timelineItems, newTweet]);
+  }}
+>
+  投稿
+</button>
 
-          // timelineに時間、テキスト、いいねを追加する処理
-          setTimeLineItems([
-            ...timelineItems,
-            {
-              text: tweetText,
-              time: "12:00",
-              iineCount: Math.floor(Math.random() * 15000) + 1,
-              like: false,
-            },
-          ]); // ここでtimelineItemsを更新する際に、tweetTextの値を含めるように変更
-          console.log("↓timelineItemsの内容↓");
-          console.log(timelineItems);
-
-          // ary:
-        }}
-        className=""
-      >
-        投稿
-      </button>
 
       <input
         type="text"
@@ -90,16 +84,20 @@ export default function Home() {
       />
       <SearchButton handleChange={searchButton} />
       {timelineItems.map((item, index) => (
-        <p key={index}>
-          {item.text} {item.time}{" "}
-          <LikeButton
-            like={item.like}
-            handleChange={updateLikeCount}
-            tweetNumber={index}
-          />
-          {item.iineCount}
-          <DeleteTweet handleChange={deleteButton} tweetNumber={index} />
-        </p>
+  <div className="tweet" key={index}>
+    <div className="tweet-text">{item.text}</div>
+    <div className="tweet-time">{item.time}</div>
+
+    <div className="tweet-actions">
+      <LikeButton
+        like={item.like}
+        handleChange={updateLikeCount}
+        tweetNumber={index}
+      />
+      <span>{item.iineCount}</span>
+      <DeleteTweet handleChange={deleteButton} tweetNumber={index} />
+    </div>
+  </div>
       ))}
     </div>
     // tweetNumber1
