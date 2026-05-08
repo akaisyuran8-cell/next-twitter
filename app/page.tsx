@@ -53,7 +53,9 @@ function deleteButton(tweetNumber: number) {
   }
 
   useEffect(() => {
-    practiceMethods();
+    if (typeof window !== "undefined") {
+      practiceMethods();
+    }
   }, []);
 
   return (
