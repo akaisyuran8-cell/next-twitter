@@ -31,7 +31,7 @@ export default function practiceMethods() {
     ];
     console.log(result);
   }
-  huga({}, [{}, {}, {}]);
+  huga();
 
   // 引数を受け取る関数の例
   function greet(name: string, age: number) {
