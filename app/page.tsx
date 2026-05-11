@@ -86,7 +86,7 @@ function deleteButton(tweetNumber: number) {
       />
       <SearchButton handleChange={searchButton} />
       {timelineItems.map((item, index) => (
-  <div className="tweet" key={index}>
+  <div className="tweet show" key={index}>
     <div className="tweet-text">{item.text}</div>
     <div className="tweet-time">{item.time}</div>
 
