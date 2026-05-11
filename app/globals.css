@@ -51,3 +51,23 @@ body {
   margin-top: 8px;
   align-items: center;
 }
+
+.search-input {
+  width: 280px;
+  padding: 8px 12px;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+  margin: 10px 0;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.search-input:focus {
+  border-color: #1d9bf0;
+  box-shadow: 0 0 5px rgba(29, 155, 240, 0.5);
+  outline: none;
+}
+
+.search-input::placeholder {
+  color: #888;
+}

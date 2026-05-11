@@ -8,6 +8,7 @@ export default function SearchButton({
   return (
     <input
       type="text"
+      className="search-input"
       placeholder="検索"
       onChange={(e) => {
         handleChange(e.target.value);
