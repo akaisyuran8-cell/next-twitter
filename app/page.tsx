@@ -58,6 +58,15 @@ function deleteButton(tweetNumber: number) {
     }
   }, []);
 
+  useEffect(() => {
+    const tweets = document.querySelectorAll(".tweet");
+    tweets.forEach((tweet, i) => {
+      setTimeout(() => {
+        tweet.classList.add("show");
+      }, 100 * i);
+    });
+  }, [timelineItems]);
+
   return (
     <div className="">
 <button
@@ -86,7 +95,7 @@ function deleteButton(tweetNumber: number) {
       />
       <SearchButton handleChange={searchButton} />
       {timelineItems.map((item, index) => (
-  <div className="tweet show" key={index}>
+  <div className="tweet" key={index}>
     <div className="tweet-text">{item.text}</div>
     <div className="tweet-time">{item.time}</div>
 
