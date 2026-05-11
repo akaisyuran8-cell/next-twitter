@@ -71,3 +71,9 @@ body {
 .search-input::placeholder {
   color: #888;
 }
+
+.search-input {
+  display: inline-block;
+  margin-left: 10px;
+  vertical-align: middle;
+}
